@@ -5,9 +5,11 @@ import chisel3._
 import scala.collection.mutable.{ArrayBuffer, LinkedHashMap}
 import freechips.rocketchip.diplomacy.{LazyModule}
 import org.chipsalliance.cde.config.{Field, Parameters, Config}
-import freechips.rocketchip.util.{ResetCatchAndSync, DontTouch}
+import freechips.rocketchip.util.{ResetCatchAndSync, DontTouch, ElaborationArtefacts}
 import freechips.rocketchip.prci.{ClockBundle, ClockBundleParameters, ClockSinkParameters, ClockParameters}
 import chipyard.stage.phases.TargetDirKey
+import chipyard.config.EventTraceKey
+import eventtrace.EventTrace
 
 import chipyard.harness.{ApplyHarnessBinders, HarnessBinders}
 import chipyard.iobinders.HasChipyardPorts
@@ -93,6 +95,11 @@ trait HasHarnessInstantiators {
   def instantiateChipTops(): Seq[LazyModule] = {
     require(p(MultiChipNChips).isEmpty || supportsMultiChip,
       s"Selected Harness does not support multi-chip")
+
+    // Elaborate EventTrace annotations only in configs with WithEventTrace, before any chip top elaborates, and
+    // describe the traced events next to the .dts.
+    EventTrace.enable(p(EventTraceKey))
+    if (p(EventTraceKey)) ElaborationArtefacts.add("eventtrace.json", EventTrace.manifest)
 
     val lazyDuts = chipParameters.zipWithIndex.map { case (q,i) =>
       LazyModule(q(BuildTop)(q)).suggestName(s"chiptop$i")

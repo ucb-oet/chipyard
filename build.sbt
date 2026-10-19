@@ -195,7 +195,7 @@ lazy val chipyard = {
   val baseProjects: Seq[ProjectReference] =
     Seq(
       testchipip, rocketchip, boom, rocketchip_blocks, rocketchip_inclusive_cache,
-      icenet, tracegen,
+      icenet, tracegen, eventtrace,
       constellation, barf, shuttle, rerocc,
     ).map(sbt.Project.projectToRef) ++
     (if (useChisel7) Seq() else Seq(sbt.Project.projectToRef(firrtl2_bridge))) ++
@@ -426,6 +426,12 @@ lazy val tapeout = (project in file("./tools/tapeout/"))
 lazy val fixedpoint = freshProject("fixedpoint", file("./tools/fixedpoint"))
   .settings(chiselSettings)
   .settings(commonSettings)
+
+// The EventTrace frontend. tools/eventtrace's own build holds its examples and tests; freshProject keeps this build's
+// output apart from that one's.
+lazy val eventtrace = freshProject("eventtrace", file("./tools/eventtrace/frontend"))
+  .settings(commonSettings)
+  .settings(chiselSettings)
 
 lazy val dsptools = freshProject("dsptools", file("./tools/dsptools"))
   .dependsOn(fixedpoint)
