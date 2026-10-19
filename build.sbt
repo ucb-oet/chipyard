@@ -161,7 +161,7 @@ lazy val diplomacy = freshProject("diplomacy", file("generators/diplomacy/diplom
   .settings(Compile / scalaSource := baseDirectory.value / "diplomacy")
 
 lazy val rocketchip = freshProject("rocketchip", rocketChipDir)
-  .dependsOn(hardfloat, rocketMacros, diplomacy, cde)
+  .dependsOn(hardfloat, rocketMacros, diplomacy, cde, eventtrace)
   .settings(commonSettings)
   .settings(chiselSettings)
   .settings(scalaTestSettings)
@@ -297,7 +297,7 @@ lazy val barf = withInitCheck((project in file("generators/bar-fetchers")), "bar
   .settings(commonSettings)
 
 lazy val saturn = withInitCheck((project in file("generators/saturn")), "saturn")
-  .dependsOn(rocketchip, shuttle)
+  .dependsOn(rocketchip, shuttle, eventtrace)
   .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(commonSettings)
 
@@ -372,7 +372,7 @@ lazy val vexiiriscv = withInitCheck((project in file("generators/vexiiriscv")), 
   .settings(commonSettings)
 
 lazy val sodor = withInitCheck((project in file("generators/riscv-sodor")), "riscv-sodor")
-  .dependsOn(rocketchip)
+  .dependsOn(rocketchip, eventtrace)
   .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(commonSettings)
 

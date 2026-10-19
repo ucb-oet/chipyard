@@ -45,13 +45,13 @@
 	url = https://github.com/ucb-bar/pmu.git
 [submodule "generators/riscv-sodor"]
 	path = generators/riscv-sodor
-	url = https://github.com/ucb-bar/riscv-sodor.git
+	url = https://github.com/ucb-oet/riscv-sodor.git
 [submodule "generators/rocc-acc-utils"]
 	path = generators/rocc-acc-utils
 	url = https://github.com/ucb-bar/rocc-acc-utils.git
 [submodule "generators/rocket-chip"]
 	path = generators/rocket-chip
-	url = https://github.com/chipsalliance/rocket-chip.git
+	url = https://github.com/ucb-oet/rocket-chip.git
 [submodule "generators/rocket-chip-blocks"]
 	path = generators/rocket-chip-blocks
 	url = https://github.com/chipsalliance/rocket-chip-blocks.git
@@ -141,7 +141,7 @@
 	url = https://github.com/ucb-bar/compress-acc.git
 [submodule "generators/saturn"]
 	path = generators/saturn
-	url = https://github.com/ucb-bar/saturn-vectors.git
+	url = https://github.com/ucb-oet/saturn-vectors.git
 [submodule "software/firesim-paper-workloads"]
 	path = software/firesim-paper-workloads
 	url = https://github.com/firesim/firesim-paper-workloads.git

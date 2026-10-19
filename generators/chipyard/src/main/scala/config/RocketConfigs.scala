@@ -12,6 +12,17 @@ class RocketConfig extends Config(
   new freechips.rocketchip.rocket.WithNHugeCores(1) ++         // single rocket-core
   new chipyard.config.AbstractConfig)
 
+// RocketConfig with its EventTrace annotations elaborated; simulate with +eventtrace=<path> to record.
+class TracedRocketConfig extends Config(
+  new chipyard.config.WithEventTrace ++
+  new RocketConfig)
+
+// MINV128D64RocketConfig with its EventTrace annotations elaborated: Rocket's instructions and fetch packets, and
+// Saturn's micro-ops.
+class TracedMINV128D64RocketConfig extends Config(
+  new chipyard.config.WithEventTrace ++
+  new MINV128D64RocketConfig)
+
 class DualRocketConfig extends Config(
   new freechips.rocketchip.rocket.WithNHugeCores(2) ++
   new chipyard.config.AbstractConfig)
